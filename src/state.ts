@@ -1,12 +1,12 @@
 import { KubernetesObject, V1Namespace } from '@kubernetes/client-node';
-import LruCache from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 
 import { config } from './common/config';
 import { logger } from './common/logger';
 import { IKubeObjectMetadataWithoutPodSpec } from './supervisor/types';
 import { extractNamespaceName } from './supervisor/watchers/internal-namespaces';
 
-const imagesLruCacheOptions: LruCache.Options<string, Set<string>> = {
+const imagesLruCacheOptions: LRUCache.Options<string, Set<string>> = {
   // limit cache size so we don't exceed memory limit
   max: config.IMAGES_SCANNED_CACHE.MAX_SIZE,
   // limit cache life so if our backend loses track of an image's data,
